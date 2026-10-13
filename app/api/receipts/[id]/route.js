@@ -29,6 +29,7 @@ function validatePayload(body) {
     taxValue,
     serviceMode,
     serviceValue,
+    discountMode,
     discountAmount,
   } = body;
 
@@ -63,6 +64,7 @@ function validatePayload(body) {
   for (const [modeLabel, mode, valueLabel, value] of [
     ["taxMode", taxMode, "taxValue", taxValue],
     ["serviceMode", serviceMode, "serviceValue", serviceValue],
+    ["discountMode", discountMode, "discountAmount", discountAmount],
   ]) {
     if (mode !== "percent" && mode !== "amount") {
       return `${modeLabel} harus "percent" atau "amount".`;
@@ -75,9 +77,6 @@ function validatePayload(body) {
     }
   }
 
-  if (typeof discountAmount !== "number" || !Number.isFinite(discountAmount) || discountAmount < 0) {
-    return "discountAmount harus angka >= 0.";
-  }
   return null;
 }
 

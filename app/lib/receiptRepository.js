@@ -73,6 +73,7 @@ export async function getReceiptState(receiptId) {
     taxValue: Number(receipt.tax_value),
     serviceMode: receipt.service_mode,
     serviceValue: Number(receipt.service_value),
+    discountMode: receipt.discount_mode ?? "amount",
     discountAmount: Number(receipt.discount_amount),
   };
 }
@@ -93,6 +94,7 @@ export async function saveReceiptState(receiptId, state) {
     taxValue,
     serviceMode,
     serviceValue,
+    discountMode,
     discountAmount,
   } = state;
 
@@ -124,5 +126,17 @@ export async function saveReceiptState(receiptId, state) {
   if (error) {
     console.error("Gagal menyimpan state patungan:", error);
     throw error;
+  }
+
+  // discount_mode disimpan terpisah supaya fungsi RPC save_receipt_state
+  // yang sudah ada di Supabase tidak perlu diubah.
+  const { error: discountModeError } = await supabase
+    .from("receipts")
+    .update({ discount_mode: discountMode })
+    .eq("id", receiptId);
+
+  if (discountModeError) {
+    console.error("Gagal menyimpan mode diskon:", discountModeError);
+    throw discountModeError;
   }
 }

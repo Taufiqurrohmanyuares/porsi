@@ -11,10 +11,11 @@
  * @param {"percent"|"amount"} state.taxMode
  * @param {number} state.serviceValue
  * @param {"percent"|"amount"} state.serviceMode
- * @param {number} state.discountAmount - flat rupiah amount
+ * @param {number} state.discountAmount - nilai diskon (persen atau rupiah, tergantung discountMode)
+ * @param {"percent"|"amount"} [state.discountMode="amount"]
  */
 
-/** A charge is either "X% of subtotal" or a flat rupiah amount — never both at once. */
+/** A charge/discount is either "X% of subtotal" or a flat rupiah amount — never both at once. */
 function resolveChargeAmount(mode, value, subtotal) {
   const safeValue = Number.isFinite(value) && value > 0 ? value : 0;
   if (mode === "amount") return safeValue;
@@ -32,6 +33,7 @@ export function calculateSplit(state) {
     serviceValue,
     serviceMode,
     discountAmount,
+    discountMode = "amount",
   } = state;
 
   const subtotal = items.reduce((sum, i) => sum + i.price, 0);
@@ -58,7 +60,8 @@ export function calculateSplit(state) {
 
   const taxAmount = resolveChargeAmount(taxMode, taxValue, subtotal);
   const serviceAmount = resolveChargeAmount(serviceMode, serviceValue, subtotal);
-  const clampedDiscount = Math.min(discountAmount, subtotal + taxAmount + serviceAmount);
+  const discountValue = resolveChargeAmount(discountMode, discountAmount, subtotal);
+  const clampedDiscount = Math.min(discountValue, subtotal + taxAmount + serviceAmount);
   const extraTotal = taxAmount + serviceAmount - clampedDiscount;
   const grandTotal = subtotal + taxAmount + serviceAmount - clampedDiscount;
 

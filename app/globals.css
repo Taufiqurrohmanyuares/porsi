@@ -422,12 +422,60 @@ input:focus-visible {
 
 .unit-input span { font-size: 13px; color: var(--text-muted); }
 
+/* ---------- Assign screen: blok isian ---------- */
+.field-block { margin-bottom: 28px; }
+
+.field-block-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+.field-hint {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 10px 0 0;
+}
+
+.field-block .row-form { margin-bottom: 0; }
+.field-block .field-error { margin: 8px 0 0; }
+
+.info-note {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  background: var(--surface-muted);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin: 0;
+}
+
+.mode-toggle-wide {
+  display: flex;
+  width: 100%;
+  padding: 3px;
+  background: var(--surface-muted);
+}
+
+.mode-toggle-wide .mode-toggle-btn {
+  flex: 1;
+  font-size: 13.5px;
+  padding: 10px 12px;
+}
+
+.assign-screen .nav-row { margin-top: 4px; }
+
 /* ---------- Participant chips ---------- */
 .chip-row {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-top: 12px;
 }
 
 .chip {
@@ -437,7 +485,7 @@ input:focus-visible {
   background: var(--surface-muted);
   border: 0.5px solid var(--border);
   border-radius: 999px;
-  padding: 6px 8px 6px 12px;
+  padding: 5px 6px 5px 12px;
   font-size: 13px;
   font-weight: 500;
 }
@@ -447,15 +495,15 @@ input:focus-visible {
   color: var(--surface);
   border: none;
   border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  font-size: 11px;
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
   line-height: 1;
   cursor: pointer;
 }
 
 /* ---------- Assign list ---------- */
-.assign-list { margin-top: 12px; }
+.assign-list { margin-top: 0; border-top: 0.5px solid var(--border); }
 
 .assign-item {
   padding: 16px 0;
