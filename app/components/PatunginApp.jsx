@@ -3,9 +3,9 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import { calculateSplit } from "../lib/calculateSplit";
-import "../porsi.css";
-import { calculateSplit } from "../lib/calculateSplit";
 import { compressToDataUrl } from "../lib/compressImage";
+import "../porsi.css";
+
 
 // ==========================================
 // Helper kecil
@@ -818,13 +818,6 @@ export default function PatunginApp({ receiptId, initialState }) {
     timers.current.s2 = setTimeout(() => setScanStep((s) => Math.max(s, 2)), 1600);
 
     try {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      await new Promise((resolve, reject) => {
-        reader.onload = resolve;
-        reader.onerror = reject;
-      });
-
       const imageBase64 = await compressToDataUrl(file);
 
       const res = await fetch("/api/receipts/scan", {
@@ -832,6 +825,7 @@ export default function PatunginApp({ receiptId, initialState }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageBase64 }),
       });
+
 
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));

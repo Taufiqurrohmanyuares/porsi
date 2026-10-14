@@ -1,7 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { NextResponse } from "next/server";
-import { calculateSplit } from "../lib/calculateSplit";
-import { compressToDataUrl } from "../lib/compressImage";
+
 
 // Foto struk + AI bisa makan waktu; jangan sampai fungsi serverless terputus
 // di tengah jalan (di Vercel default-nya pendek).
