@@ -92,7 +92,7 @@ const STEPS = [
   { n: 3, key: "summary", label: "Hasil" },
 ];
 
-const MAX_IMAGE_MB = 8;
+const MAX_IMAGE_MB = 25;
 const SCAN_LABELS = ["Mendeteksi baris item", "Membaca nama dan harga", "Merapikan daftar item"];
 
 // ==========================================
@@ -823,10 +823,12 @@ export default function PatunginApp({ receiptId, initialState }) {
         reader.onerror = reject;
       });
 
+      const imageBase64 = await compressToDataUrl(file);
+
       const res = await fetch("/api/receipts/scan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageBase64: reader.result }),
+        body: JSON.stringify({ imageBase64 }),
       });
 
       if (!res.ok) {
