@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import { calculateSplit } from "../lib/calculateSplit";
 import "../porsi.css";
+import { calculateSplit } from "../lib/calculateSplit";
+import { compressToDataUrl } from "../lib/compressImage";
 
 // ==========================================
 // Helper kecil
